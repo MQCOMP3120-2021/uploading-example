@@ -26,8 +26,16 @@ apiRouter.post('/images/', (req, res) => {
       const imageFile = req.files.imageFile;
       if (!imageFile) {
         return res.status(400).send('No files were uploaded.');
+      } 
+
+      // generate a safe filename but preserve the file extension of the uploaded file
+      const parts = imageFile.name.split('.')
+      let extension = ''
+      if (parts.length > 1) {
+        extension = '.' + parts.pop()
       }
-      const uploadPath = IMAGE_FOLDER + imageFile.name;
+      const filename = imageFile.md5 + extension;
+      const uploadPath = IMAGE_FOLDER + filename
     
       // Use the mv() method to place the file somewhere on your server
       imageFile.mv(uploadPath, function(err) {
@@ -37,7 +45,7 @@ apiRouter.post('/images/', (req, res) => {
         }
     
         // return the new image URL
-        res.send('/images/' + imageFile.name);
+        res.send('/images/' + filename);
       });
   })
   

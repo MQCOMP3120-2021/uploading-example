@@ -18,7 +18,10 @@ function App() {
   return (
     <div className="App">
       <h2>Upload an image</h2>
-      <form action="http://localhost:3104/images/" method='POST' encType="multipart/form-data">
+      <form action="http://localhost:3104/images/"
+            method='POST' 
+            encType="multipart/form-data">
+
         File: <input type='file' name='imageFile'/>
         <input type='submit'/>
       </form>
@@ -27,7 +30,7 @@ function App() {
 
       <h2>List of images</h2>
       <ul>
-        {images.map((i) => (<li key={i}><a href={`http://localhost:3104${i}`}>{i}</a></li>))}
+        {images.map((i) => (<li key={i}><img src={`http://localhost:3104${i}`} width='100'/></li>))}
       </ul>
     </div>
   );
